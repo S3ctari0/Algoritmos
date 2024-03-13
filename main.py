@@ -1,26 +1,70 @@
-# Ordenamiento Burbuja
 
-def burbuja_orden(array):
-    for i in range(len(array)-1):
-        for j in range(len(array)):
-            while array[i] > array[i + 1]:
-                array[i], array[i + 1] = array[i + 1], array[i]
-                burbuja_orden(array)
-    return array
+class AttackStrategy:
+    def attack(self):
+        pass
 
-print(burbuja_orden([2, 4, 5, 1, 8, 3]))
+class SamuraiAttack(AttackStrategy):
+    def attack(self):
+        print("Seleccionaste Samurai. Aquí están algunas opciones de ataque:")
+        options = [
+            "1. Cubrirse (Escudo de caballero viejo)",
+            "2. Atacar (Uchigatana)",
+            "3. Rodar"
+        ]
+        print("\n".join(options))
+        choice = input("Selecciona una opción: ")
+        print("Realizando movimiento:", options[int(choice) - 1])
 
+class ArcherAttack(AttackStrategy):
+    def attack(self):
+        print("Seleccionaste Arquero. Aquí están algunas opciones de ataque:")
+        options = [
+            "1. Cubrirse (Parma de luz solar)",
+            "2. Atacar (Arco Grande del Matadragones)",
+            "3. Rodar"
+        ]
+        print("\n".join(options))
+        choice = input("Selecciona una opción: ")
+        print("Realizando movimiento:", options[int(choice) - 1])
 
-#Selection Sort
+class KnightAttack(AttackStrategy):
+    def attack(self):
+        print("Seleccionaste Caballero. Aquí están algunas opciones de ataque:")
+        options = [
+            "1. Cubrirse (Escudo de Drangleic)",
+            "2. Atacar (Espadón de luz de luna)",
+            "3. Rodar"
+        ]
+        print("\n".join(options))
+        choice = input("Selecciona una opción: ")
+        print("Realizando movimiento:", options[int(choice) - 1])
 
-def selection_sort(array):
-    for i in range(len(array)-1):
-        min_index = i
-        for j in range(i + 1, len(array)):
-            if array[j] < array[min_index]:
-                min_index = j
-        array[min_index], array[i] = array[i], array[min_index]
-    return array
+class Unit:
+    def __init__(self, attack_strategy):
+        self.attack_strategy = attack_strategy
 
-print(selection_sort([2, 4, 5, 1, 8, 3]))
+    def set_attack_strategy(self, attack_strategy):
+        self.attack_strategy = attack_strategy
 
+    def attack(self):
+        self.attack_strategy.attack()
+
+def choose_attack_strategy():
+    print("Elige una estrategia de ataque:")
+    print("1. Samurai (Katana)")
+    print("2. Arquero (flechas)")
+    print("3. Caballero (espada larga)")
+    choice = input("Selecciona una opción: ")
+    if choice == "1":
+        return SamuraiAttack()
+    elif choice == "2":
+        return ArcherAttack()
+    elif choice == "3":
+        return KnightAttack()
+    else:
+        print("Opción no válida. Seleccionando samurai por defecto.")
+        return SamuraiAttack()
+
+chosen_strategy = choose_attack_strategy()
+unit = Unit(chosen_strategy)
+unit.attack()
